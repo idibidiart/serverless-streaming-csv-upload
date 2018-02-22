@@ -1,8 +1,8 @@
 
 
-## Advantages over storing and parsing file on server
+# Advantages over storing and parsing file on server
 
-### Storing and Parsing on Server
+## Storing and Parsing on Server
 
 1. requires slicing the CSV file and re-assembling on the server (i.e. streaming to keep memory usage constant per file per unit of time)
 
@@ -15,7 +15,7 @@
 5. after file is completely on server, worker processes are needed to read and parse the file as a stream and insert the data into db, then unlink the file when done. such worker processes must be able to recover from failure and resume stream parsing the file, inserting the data into db, and making sure to unlink file when done.
 
 
-How this works:
+## How this works:
 
 1. does not require uploading files to the server. All file(s) are stored temporarily in IndexedDB and up to 1Gb can be parsed in slices and into dedicated, temporary object stores in IndexedDB (1 per file.) The File itself is never loaded into memory in full. Files are cleaned up almost instantly after they’ve been parsed and converted to raw chunks of data in IndexedDB. Status: Done.
 
@@ -24,3 +24,13 @@ How this works:
 3. files do not need to be re-uploaded to resume transfer of data to server, it happens automatically when app is running. Status: Todo.
 
 3. no fault-tolerant processes needed on the servers -- everything remains stateless and simple on the servers
+
+### Running
+
+in project folder, run: python -m SimpleHTTPServer 8080
+
+open localhost:8080/demo.html
+
+[Download this CSV file to test with (~1Gb)](https://www.dropbox.com/s/re91c6y9ekbxost/article_category.csv?dl=0)
+
+ 
