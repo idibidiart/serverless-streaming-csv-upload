@@ -38,7 +38,7 @@ open localhost:8080/demo.html
 
  This demo shows how fast you can process ~1GB large CSV file into chunks of 20Mb each. Reason for this particular chunk size is Firefox has a limit of 50Mb per object (other than File objects) and Chrome has a 50 items limit per object store. So this gives us up to 1Gb in total file size. MS Edge has 20Gb limit on desktop and a good amount on mobile. Safari is in the same ballpark. The thing to note about sizes is that the files are only stored till they're parsed, which happens in less than a second in most cases, and the raw CSV chunked data is stored until it's inserted into the db, which can happen pretty quickly over a websockets. 
 
- ![video](https://www.youtube.com/watch?v=HyZoUJAftmA) 
+[![video](https://img.youtube.com/vi/HyZoUJAftmA/0.jpg)](https://www.youtube.com/watch?v=HyZoUJAftmA) 
 
  Todo:
 
