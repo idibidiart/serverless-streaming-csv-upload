@@ -195,8 +195,8 @@
         }
 
         transaction.onabort = function(evt) {
-          displayObjectStore("<p> Aborted. Cannot add a file while it's waitin to be processed and its data to streamed to the server." + 
-          "Wait for it to finish (you'll be notified.) To abort processing, choose a file from the Imaginary menu and click Cancel (WIP)</p>" +
+          displayObjectStore("<p> Aborted. Cannot add a file while it's waitin to be streamed to the server." + 
+          "Wait for it to finish (you'll be notified.) To abort, choose a file from the Imaginary menu and click Cancel (WIP)</p>" +
           "<p><strong>File(s) added to the store:</strong></p>"
         )
           console.log("transaction.onabort fired in handleFileSelection");
