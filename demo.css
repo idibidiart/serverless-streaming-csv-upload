@@ -1,0 +1,31 @@
+* {
+    font-family: segoe, sans-serif;
+  }    
+  
+  html {
+    padding: 20px;
+    margin: 0;
+  }
+  
+  body {
+    width: 640px;
+    margin: 0 auto;
+  }
+  
+  .buttons{
+    margin-left:0px;
+  }
+  button {
+    margin-right: 1em;
+  }
+  
+ .messages {
+    border: 1px black solid;
+    width: 640px;
+    margin-top: 1em;
+    padding: 0 1em;
+  }
+  
+  #fileSelector {
+    width: 60px;
+  }

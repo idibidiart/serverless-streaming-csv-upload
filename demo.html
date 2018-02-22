@@ -1,0 +1,31 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="demo.css">
+</head>
+  <body id="bodyElement">
+    <div class="buttons">
+      <button id="openButton">Create/Open Database</button>
+      <!-- Clicking this opens the database. If there's no database to open, a database is created. -->
+      <button id="storeButton">Stream CSV Files to Server</button>
+      <button id="deleteButton">Delete Database</button>
+    </div>
+    <div class="messages">
+      <p>If the database does not exist, clicking 
+          <strong>Create/Open Database</strong> creates it. 
+          If the database already exists, clicking <strong>Create/Open 
+        Database</strong> opens it.</p>
+      <p>Thus, you must click the <strong>Create/Open Database</strong> 
+        button before clicking the <strong>Store Files in Database</strong> button.</p>
+    </div>
+
+    <div class="messages">
+            <p class='live'></p>
+    </div>
+     
+    <p>
+      <input type="file" accept=".csv"  id="fileSelectorHidden" multiple size="24" style='display: none;'>
+      <input type="button" id="fileSelector" style='display: none;' value="Browse..." onclick="document.getElementById('fileSelectorHidden').click();" />
+      <!-- Only display this element when the database is ready. -->
+    </p>
+  
+  </body>
+  <script src="demo.js"></script>
