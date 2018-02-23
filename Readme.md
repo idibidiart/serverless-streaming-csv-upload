@@ -35,13 +35,16 @@ open localhost:8080/demo.html
 
  
  ## Video demo
-
- This demo shows how fast you can process ~1GB large CSV file into chunks of 20Mb each. Reason for this particular chunk size is Firefox has a limit of 50Mb per object (other than File objects) and Chrome has a 50 items limit per object store. So this gives us up to 1Gb in total file size. MS Edge has 20Gb limit on desktop and a good amount on mobile. Safari is in the same ballpark. The thing to note about sizes is that the files are only stored till they're parsed, which happens in less than a second in most cases, and the raw CSV chunked data is stored until it's inserted into the db, which can happen pretty quickly over a websockets. 
-
+ 
 [![video](https://img.youtube.com/vi/HyZoUJAftmA/0.jpg)](https://www.youtube.com/watch?v=HyZoUJAftmA) 
 
- Todo:
+## Browser IndexedDB Storage Limnits
 
- Add a web worker thread of a pool of worker threads to respond to server request for row ranges and convert the matching chunk(s) into a range of rows to send to the server, where they can be inserted directly into a database or thrown on a real time ingestion and analytics pipeline (Kafka/Samza et al)
+ This demo shows how fast you can process ~1GB large CSV file into chunks of fileSize/50. Reason for this chunk size is two fold: 1) you don't want to open the whole file in memory when processing, and 2) Chrome has a 50 items limit per object store (need to check in with IDB lead from Google about this limit.) Also,Firefox has a limit of 50Mb per object (before asking user for permission -- but this limit does not apply to File objects.) So this gives us up to 2.5Gb (2Gb is ma limit per domain for Firefox) as total maximum for file chunk storage. MS Edge has 20Gb limit (assuming disk volume size >= 12GB) Safari should work for File object storage of any size and chunk object size of at least 50MB. So we must limit to 2Gb total size for the temporary file chunk storage. That's preyy good for a stream processing buffer on the client machine. The thing to note about this limit is that the file chunks are stored only until they're processed and streamed to the server, which can happen pretty quickly over a websockets. So this storage does not take up permenant space on the users machines. Furthermore, most cases, Excel/CSV file size is about 100Mb-200Mb at most. 
+ 
+ ## Todo:
 
+ 1. Add a web worker thread of a pool of worker threads to respond to server request for row ranges and convert the matching chunk(s) into a range of rows to send to the server, where they can be inserted directly into a database or thrown on a real time ingestion and analytics pipeline (Kafka/Samza et al)
+
+2. Make sure total number of files being stored/processed/streamed does not add up to more than 2G in size.
    

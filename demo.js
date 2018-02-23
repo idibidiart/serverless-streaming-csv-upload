@@ -243,6 +243,9 @@
             fileCount[file.name] = fileCount[file.name] || 0
             fileDone[file.name] = fileDone[file.name] || false
 
+            // 50 is how many objects Chrome seems to allow per objectStore
+            var chunkSize = Math.ceil(file.size / 50)
+
             reader[file.name] = new FileReader()
 
             reader[file.name].onload = reader[file.name].onload || 
@@ -271,14 +274,14 @@
             var chunk
 
             if (file.slice)
-                chunk = file.slice(filePos[file.name], filePos[file.name] + Math.min(20971520, (file.size - filePos[file.name])))
+                chunk = file.slice(filePos[file.name], filePos[file.name] + Math.min(chunkSize, (file.size - filePos[file.name])))
             else
-                chunk = file.mozSlice(filePos[file.name], filePos[file.name] + Math.min(20971520, (file.size - filePos[file.name])))
+                chunk = file.mozSlice(filePos[file.name], filePos[file.name] + Math.min(chunkSize, (file.size - filePos[file.name])))
 
             reader[file.name].readAsText(chunk)
 
-            if (filePos[file.name] + 20971520 < file.size) {
-              filePos[file.name] = ++fileCount[file.name] * 20971520
+            if (filePos[file.name] + chunkSize < file.size) {
+              filePos[file.name] = ++fileCount[file.name] * chunkSize
               console.log(filePos[file.name])
               setImmediate(function() { sliceAndRead(file) })
             } else {
